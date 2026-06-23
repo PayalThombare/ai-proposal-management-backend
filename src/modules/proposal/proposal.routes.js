@@ -7,6 +7,7 @@ const {
   getAllProposalsController,
   getProposalByIdController,
   approveProposalController,
+  rejectProposalController,
 } = require("./proposal.controller");
 
 const authMiddleware = require("../../../shared/middleware/authMiddleware");
@@ -56,6 +57,17 @@ router.patch(
   authMiddleware,
   roleMiddleware("manager"),
   approveProposalController
+);
+
+/*
+ * Manager Only
+ * Reject Proposal
+ */
+router.patch(
+  "/:id/reject",
+  authMiddleware,
+  roleMiddleware("manager"),
+  rejectProposalController
 );
 
 module.exports = router;

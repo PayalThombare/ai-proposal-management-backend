@@ -47,9 +47,27 @@ const approveProposal = async (proposalId, managerId) => {
   return proposal;
 };
 
+const rejectProposal = async (proposalId, managerId, rejectionReason) => {
+const proposal = await Proposal.findById(proposalId);
+
+if (!proposal) {
+throw new Error("Proposal not found");
+}
+
+proposal.status = "rejected";
+proposal.approvedBy = managerId;
+proposal.approvalDate = new Date();
+proposal.rejectionReason = rejectionReason || "Proposal rejected";
+
+await proposal.save();
+
+return proposal;
+};
+
 module.exports = {
   createProposal,
   getAllProposals,
   getProposalById,
   approveProposal,
+  rejectProposal,
 };

@@ -11,6 +11,7 @@ const {
   getAllProposals,
   getProposalById,
   approveProposal,
+  rejectProposal,
 } = require("./proposal.service");
 
 
@@ -116,9 +117,37 @@ const approveProposalController = async (
   }
 };
 
+const rejectProposalController = async (req, res) => {
+try {
+const proposal = await rejectProposal(
+req.params.id,
+req.user.id,
+req.body.rejectionReason
+);
+
+res.status(200).json({
+  success: true,
+  message: "Proposal rejected successfully",
+  data: proposal,
+});
+
+} catch (error) {
+console.log("ERROR =>", error);
+console.log(error.stack);
+
+res.status(500).json({
+  success: false,
+  message: error.message,
+});
+
+}
+};
+
+
 module.exports = {
   createProposalController,
   getAllProposalsController,
   getProposalByIdController,
   approveProposalController,
+  rejectProposalController,
 };
