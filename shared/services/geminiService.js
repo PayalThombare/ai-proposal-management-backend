@@ -12,7 +12,6 @@ console.log(
 `Gemini Request Attempt ${attempt}`
 );
 
-````
   const response =
     await ai.models.generateContent({
       model: "gemini-2.5-flash",
@@ -73,7 +72,7 @@ console.log(
     }`
   );
 }
-````
+
 
 }
 };
