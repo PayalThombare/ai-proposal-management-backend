@@ -47,22 +47,40 @@ const approveProposal = async (proposalId, managerId) => {
   return proposal;
 };
 
-const rejectProposal = async (proposalId, managerId, rejectionReason) => {
-const proposal = await Proposal.findById(proposalId);
+const rejectProposal = async (
+  proposalId,
+  userId,
+  rejectionReason
+) => {
+  const proposal = await Proposal.findById(
+    proposalId
+  );
 
-if (!proposal) {
-throw new Error("Proposal not found");
-}
+  if (!proposal) {
+    throw new Error("Proposal not found");
+  }
 
-proposal.status = "rejected";
-proposal.approvedBy = managerId;
-proposal.approvalDate = new Date();
-proposal.rejectionReason = rejectionReason || "Proposal rejected";
+  if (proposal.status === "approved") {
+    throw new Error(
+      "Approved proposal cannot be rejected"
+    );
+  }
 
-await proposal.save();
+  proposal.status = "rejected";
+  proposal.rejectedBy = userId;
+  proposal.rejectionDate = new Date();
 
-return proposal;
+  proposal.rejectionReason =
+    typeof rejectionReason === "string"
+      ? rejectionReason
+      : rejectionReason?.reason ||
+        "Proposal rejected";
+
+  await proposal.save();
+
+  return proposal;
 };
+
 
 const getProposalByRfpId = async (rfpId) => {
   const proposal = await Proposal.findOne({

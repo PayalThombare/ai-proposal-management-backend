@@ -20,7 +20,7 @@ const proposalSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["draft", "generated", "approved"],
+      enum: ["draft", "generated", "approved", "rejected"],
       default: "generated",
     },
 
@@ -41,6 +41,22 @@ const proposalSchema = new mongoose.Schema(
       default: null,
     },
 
+    rejectedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+
+    rejectionDate: {
+      type: Date,
+      default: null,
+    },
+
+    rejectionReason: {
+      type: String,
+      default: null,
+    },
+
     version: {
       type: Number,
       default: 1,
@@ -51,7 +67,4 @@ const proposalSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(
-  "Proposal",
-  proposalSchema
-);
+module.exports = mongoose.model("Proposal", proposalSchema);

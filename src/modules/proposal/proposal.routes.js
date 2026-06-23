@@ -57,7 +57,7 @@ router.get(
 router.patch(
   "/:id/approve",
   authMiddleware,
-  roleMiddleware("manager"),
+  roleMiddleware("manager", "admin"),
   approveProposalController
 );
 
@@ -68,7 +68,7 @@ router.patch(
 router.patch(
   "/:id/reject",
   authMiddleware,
-  roleMiddleware("manager"),
+  roleMiddleware("manager", "admin"),
   rejectProposalController
 );
 
