@@ -5,25 +5,30 @@ console.log(
 
 const analyzeRisk = async (requirements, businessAnalysis) => {
   try {
- const prompt = `
-You are a Software Project Risk Analyst.
+const prompt = `
+You are a Senior Software Risk Analyst.
 
-Analyze the project and identify only the most important risks.
+Your task is to identify project-specific risks based ONLY on the provided Requirements and Business Analysis.
 
-IMPORTANT RULES:
+CRITICAL INSTRUCTIONS:
 
-- Use ONLY information available in the Requirements and Business Analysis.
-- Do NOT assume enterprise-scale risks.
-- Keep risks concise and practical.
-- Maximum 3 technical risks.
-- Maximum 2 resource risks.
-- Maximum 2 timeline risks.
-- Maximum 2 security risks.
-- Maximum 5 mitigation strategies.
-- Each risk should be one short sentence.
-- Return ONLY valid JSON.
-- Do NOT return markdown.
-- Do NOT wrap response inside \`\`\`json.
+1. Read the complete project carefully before identifying risks.
+2. Risks must be directly derived from:
+
+   * Functional Requirements
+   * Non-Functional Requirements
+   * Modules
+   * Workflows
+   * User Roles
+   * Integrations
+   * Deployment Requirements
+3. Every project must generate unique risks.
+4. Do NOT use predefined risk templates.
+5. Do NOT generate generic risks unless clearly supported by the project.
+6. Do NOT assume any feature that is not mentioned.
+7. If no risk exists for a category, return an empty array.
+8. Mitigation strategies must directly correspond to identified risks.
+9. Base risks on actual project functionality, not project type names.
 
 Requirements:
 ${JSON.stringify(requirements)}
@@ -31,16 +36,17 @@ ${JSON.stringify(requirements)}
 Business Analysis:
 ${JSON.stringify(businessAnalysis)}
 
-Return JSON in this exact format:
+Return ONLY valid JSON:
 
 {
-  "technicalRisks": [],
-  "resourceRisks": [],
-  "timelineRisks": [],
-  "securityRisks": [],
-  "mitigationStrategies": []
+"technicalRisks": [],
+"resourceRisks": [],
+"timelineRisks": [],
+"securityRisks": [],
+"mitigationStrategies": []
 }
 `;
+
 
     const response = await generateContent(prompt);
 

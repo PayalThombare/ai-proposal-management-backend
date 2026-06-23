@@ -18,63 +18,124 @@ const estimateCostAndTimeline = async (
     );
 
 const prompt = `
-You are an experienced Software Project Estimator working for a small-to-medium software development company.
+You are a Senior Software Cost Estimation Consultant with experience delivering projects for Indian startups, SMEs, local businesses, and mid-sized organizations.
 
-Analyze the project requirements and provide a realistic software project estimation.
+Your responsibility is to generate a realistic commercial estimation based on the actual project scope.
 
 IMPORTANT RULES:
 
-* Use ONLY information explicitly provided in the project requirements.
-* Do NOT assume additional features, integrations, users, modules, or enterprise requirements.
-* Do NOT assume Fortune 500, enterprise-scale, government-scale, or nationwide deployments unless explicitly stated.
-* Respect any timeline, budget, or constraints already mentioned in the RFP.
-* Assume this is a small-to-medium business project unless clearly specified otherwise.
+* Carefully analyze all provided inputs before estimating.
+* Use ONLY information available in:
+
+  * Project Requirements
+  * Business Analysis
+  * Risk Analysis
+  * Baseline Estimation
+* Do NOT invent scope.
+* Do NOT invent modules.
+* Do NOT invent integrations.
+* Do NOT invent enterprise requirements.
+* Respect any timeline or constraints already mentioned.
+* Assume SME-scale implementation unless explicitly stated otherwise.
 * Maximum team size: 5 members.
-* Keep estimations practical, conservative, and realistic.
 * Return ONLY valid JSON.
 * Do NOT return markdown.
-* Do NOT wrap the response in code blocks.
 
-COST ESTIMATION GUIDELINES:
+MANDATORY ANALYSIS PROCESS:
 
-Simple Project:
+Before estimating:
 
-* Examples: Portfolio website, business website, landing page, basic dashboard, billing software, inventory management, appointment booking system.
-* Team Size: 1-2 members
-* Duration: 1-4 weeks
-* Cost Range: ₹15,000 - ₹80,000
+1. Review the project requirements.
+2. Review identified modules.
+3. Review workflows.
+4. Review user roles.
+5. Review integrations.
+6. Review project risks.
+7. Review baseline estimation.
+8. Determine actual implementation effort.
+9. Validate whether baseline estimation is reasonable.
+10. Then estimate cost.
 
-Medium Project:
+IMPORTANT:
 
-* Examples: CRM, ERP module, e-commerce website, admin panel, multi-role web application, management portal.
-* Team Size: 2-4 members
-* Duration: 1-3 months
-* Cost Range: ₹80,000 - ₹3,00,000
+Never estimate complexity based only on words such as:
 
-Complex Project:
+* AI
+* Dashboard
+* Analytics
+* Portal
+* Reports
+* Reporting
+* Smart
+* Intelligent
+* Automation
 
-* Examples: Large web platforms, SaaS products, AI-powered applications, multi-module business systems, advanced automation.
-* Team Size: 3-5 members
-* Duration: 3-6 months
-* Cost Range: ₹3,00,000 - ₹8,00,000
+Estimate based on actual development effort.
 
-Very Complex Project:
+COMPLEXITY VALIDATION RULES:
 
-* Examples: Enterprise platforms, large-scale AI systems, multi-platform ecosystems.
-* Team Size: 4-5 members
-* Duration: 6+ months
-* Cost Range: ₹8,00,000 - ₹15,00,000
+Simple:
 
-ESTIMATION LOGIC:
+* Up to 5 modules
+* Up to 2 roles
+* Basic workflows
+* No major integrations
 
-* Determine complexity based only on the actual requirements.
-* Cost must be proportional to complexity, duration, and team size.
-* If requirements describe a standard business website or management system, classify as Simple or Medium.
-* Only classify as Complex when multiple integrations, automation workflows, AI capabilities, analytics, advanced reporting, or multiple user roles are clearly required.
-* Never estimate above ₹15,00,000 unless the RFP explicitly describes a large enterprise project.
-* Prefer realistic SME pricing over enterprise consulting rates.
-* Avoid inflated budgets.
-* Recommendations must be short, actionable, and business-focused.
+Medium:
+
+* 6-10 modules
+* Multiple workflows
+* Limited integrations
+* Up to 4 roles
+
+Complex:
+
+* More than 10 modules
+* Multiple integrations
+* Advanced workflows
+* Large business process coverage
+
+Very Complex:
+
+* Only if explicitly mentioned
+* Enterprise-scale deployment
+* Multi-tenant architecture
+* Nationwide implementation
+
+COST VALIDATION RULES:
+
+* Standard websites should normally remain below ₹80,000.
+* Small business applications should normally remain below ₹1,50,000.
+* Booking systems, billing systems, inventory systems, and management systems should generally remain below ₹3,00,000 unless requirements clearly justify more.
+* Never estimate above ₹15,00,000 unless explicitly supported by the requirements.
+* Prefer realistic Indian software company pricing.
+* Avoid inflated consulting estimates.
+
+EFFORT ESTIMATION:
+
+Estimate effort using:
+
+* Requirement Analysis
+* UI/UX Development
+* Frontend Development
+* Backend Development
+* Database Design
+* Testing
+* Deployment
+* Documentation
+
+Generate total effort as:
+
+* Low
+* Medium
+* High
+
+RECOMMENDATIONS RULES:
+
+* Maximum 5 recommendations.
+* Recommendations must be project-specific.
+* Recommendations must be practical and business-focused.
+* Do not provide generic recommendations.
 
 Project Requirements:
 ${JSON.stringify(requirements)}
@@ -88,7 +149,7 @@ ${JSON.stringify(riskAnalysis)}
 Baseline Estimation:
 ${JSON.stringify(baseline)}
 
-Return JSON in exactly this format:
+Return ONLY valid JSON:
 
 {
 "complexity": "",
@@ -96,9 +157,11 @@ Return JSON in exactly this format:
 "estimatedDuration": "",
 "estimatedCost": "",
 "developmentEffort": "",
+"reasoning": "",
 "recommendations": []
 }
 `;
+
 
 
     const response = await generateContent(prompt);

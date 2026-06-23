@@ -9,9 +9,9 @@ const getEstimationBaseline = async (
 ) => {
   try {
 const prompt = `
-You are a Senior Software Project Estimation Expert.
+You are a Senior Software Project Estimation Expert with 10+ years of experience estimating software projects for startups, SMEs, local businesses, and mid-sized organizations.
 
-Analyze the project requirements and generate a realistic baseline estimation suitable for startups, SMEs, local businesses, and mid-sized organizations.
+Your task is to carefully analyze the project before generating any estimation.
 
 IMPORTANT RULES:
 
@@ -20,95 +20,174 @@ IMPORTANT RULES:
 * Do NOT invent scope.
 * Assume this is a small-to-medium business project unless clearly stated otherwise.
 * Team size should normally be between 1 and 5 members.
-* Keep estimations practical and conservative.
+* Keep estimations practical, conservative, and realistic.
+* Prefer realistic Indian software development pricing.
 * Return ONLY valid JSON.
 * Do NOT return markdown.
 * Do NOT wrap response inside code blocks.
 
+MANDATORY ANALYSIS PROCESS:
+
+Before generating any estimation, carefully analyze the entire project.
+
+You MUST:
+
+1. Read all requirements completely.
+2. Understand the actual business objective.
+3. Identify all functional requirements.
+4. Identify all major modules.
+5. Identify all user roles.
+6. Identify all workflows and business processes.
+7. Identify integrations ONLY if explicitly mentioned.
+8. Determine the actual development effort required.
+9. Determine project size based on implementation effort, not keywords.
+10. Only after completing the above analysis, determine:
+
+* Project Size
+* Complexity
+* Team Size
+* Duration
+* Cost
+
+IMPORTANT:
+
+Never estimate complexity based solely on words such as:
+
+* AI
+* Smart
+* Intelligent
+* Dashboard
+* Analytics
+* Reports
+* Reporting
+* Portal
+* Management System
+* Automation
+
+A small project containing AI features is NOT automatically a Complex project.
+
+Complexity must be determined using:
+
+* Number of modules
+* Number of user roles
+* Number of workflows
+* Number of integrations
+* Number of deliverables
+* Actual implementation effort
+
+PROJECT SIZE RULES:
+
+Very Small:
+
+* 1 to 3 modules
+* Single user role
+* Basic CRUD operations
+* No integrations
+
+Small:
+
+* Up to 5 modules
+* Up to 2 user roles
+* Standard business workflows
+* No major integrations
+
+Medium:
+
+* 6 to 10 modules
+* Up to 4 user roles
+* Multiple workflows
+* Limited integrations
+
+Large:
+
+* More than 10 modules
+* Multiple user roles
+* Multiple integrations
+* Complex workflows
+
+COMPLEXITY RULES:
+
+Simple:
+
+* Very Small or Small projects
+* Standard websites
+* Portfolio websites
+* Business websites
+* Hotel websites
+* School websites
+* Billing systems
+* Inventory systems
+* Basic dashboards
+
+Medium:
+
+* Medium-sized business systems
+* CRM systems
+* Booking platforms
+* ERP modules
+* Learning management systems
+* Multi-role management systems
+
+Complex:
+
+* Large business systems
+* SaaS products
+* Workflow automation platforms
+* Multi-module applications with integrations
+
+Very Complex:
+
+* Only if explicitly mentioned in requirements
+* Enterprise-scale platform
+* Multi-tenant ecosystem
+* Nationwide deployment
+* Large-scale infrastructure
+
 ESTIMATION GUIDELINES:
 
-Simple Projects:
-Examples:
+Simple:
 
-* Business Website
-* Portfolio Website
-* Hotel Website
-* School Website
-* Billing Software
-* Inventory System
-* Basic Admin Dashboard
+* Team Size: 1-2 Members
+* Duration: 2-4 Weeks
+* Cost: ₹15,000 - ₹80,000
 
-Estimated Team Size:
-1-2 members
+Medium:
 
-Estimated Duration:
-2-4 weeks
+* Team Size: 2-4 Members
+* Duration: 1-3 Months
+* Cost: ₹80,000 - ₹3,00,000
 
-Estimated Cost:
-₹15,000 - ₹80,000
+Complex:
 
-Medium Projects:
-Examples:
+* Team Size: 3-5 Members
+* Duration: 3-6 Months
+* Cost: ₹3,00,000 - ₹8,00,000
 
-* CRM
-* ERP Module
-* E-Commerce Website
-* Multi-Role Management System
-* Booking Platform
-* Learning Management System
+Very Complex:
 
-Estimated Team Size:
-2-4 members
+* Team Size: 4-5 Members
+* Duration: 6+ Months
+* Cost: ₹8,00,000 - ₹15,00,000
 
-Estimated Duration:
-1-3 months
+COST VALIDATION RULES:
 
-Estimated Cost:
-₹80,000 - ₹3,00,000
-
-Complex Projects:
-Examples:
-
-* SaaS Platforms
-* AI Enabled Applications
-* Multi-Module Business Systems
-* Advanced Analytics Platforms
-* Workflow Automation Systems
-
-Estimated Team Size:
-3-5 members
-
-Estimated Duration:
-3-6 months
-
-Estimated Cost:
-₹3,00,000 - ₹8,00,000
-
-Very Complex Projects:
-Examples:
-
-* Enterprise Platforms
-* Large Scale AI Systems
-* Multi-Tenant SaaS Ecosystems
-
-Estimated Team Size:
-4-5 members
-
-Estimated Duration:
-6+ months
-
-Estimated Cost:
-₹8,00,000 - ₹15,00,000
-
-COST RULES:
-
-* Cost must align with duration and team size.
+* Cost must align with actual project scope.
 * Standard websites should generally remain below ₹80,000.
+* Small business applications should generally remain below ₹1,50,000.
 * Business management systems should generally remain below ₹3,00,000.
 * Do not generate enterprise-level budgets.
 * Never estimate above ₹15,00,000 unless explicitly justified by requirements.
-* Prefer realistic Indian software development pricing.
-* Maximum 3 assumptions.
+* Prefer realistic Indian SME software pricing.
+
+FINAL VALIDATION:
+
+Before returning the estimation, ask yourself:
+
+1. Did I carefully analyze the complete project?
+2. Am I estimating based on actual requirements instead of keywords?
+3. Is the complexity justified by the project scope?
+4. Is the cost realistic for an Indian SME software project?
+5. Would an experienced software company provide a similar estimate?
 
 Requirements:
 ${JSON.stringify(requirements)}
@@ -116,16 +195,20 @@ ${JSON.stringify(requirements)}
 Business Analysis:
 ${JSON.stringify(businessAnalysis)}
 
-Return JSON:
+Return ONLY valid JSON:
 
 {
+"projectSize": "",
 "complexity": "",
 "recommendedTeamSize": "",
 "estimatedDuration": "",
 "estimatedCost": "",
+"reasoning": "",
 "assumptions": []
 }
 `;
+
+
 
 
     const response = await generateContent(prompt);
