@@ -102,12 +102,14 @@ const drawDivider = (doc, color = COLORS.accent) => {
   const y = doc.y;
   doc.save().strokeColor(color).lineWidth(1).moveTo(left, y).lineTo(left + width, y).stroke().restore();
 };
-
-const generateProposalPDF = (proposalContent, fileName) => {
+console.log("BEFORE PDF GENERATION");
+const generateProposalPDF = (proposalContent, fileName,  projectName,
+  clientName) => {
   return new Promise((resolve, reject) => {
     if (!proposalContent || typeof proposalContent !== "string") {
       return reject(new Error("proposalContent must be a non-empty string"));
     }
+    console.log(clientName, projectName," proposalContent = ", proposalContent);
 
     const safeFileName = sanitizeFileName(fileName);
     const uploadsDir = path.join(process.cwd(), "uploads");
@@ -124,9 +126,6 @@ const generateProposalPDF = (proposalContent, fileName) => {
       if (!fs.existsSync(uploadsDir)) {
         fs.mkdirSync(uploadsDir, { recursive: true });
       }
-
-      const projectName = extractField(proposalContent, "Project");
-      const clientName = extractField(proposalContent, "Client");
 
       const doc = new PDFDocument(PAGE_OPTIONS);
       stream = fs.createWriteStream(filePath);

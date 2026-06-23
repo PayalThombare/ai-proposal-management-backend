@@ -64,10 +64,24 @@ await proposal.save();
 return proposal;
 };
 
+const getProposalByRfpId = async (rfpId) => {
+  const proposal = await Proposal.findOne({
+    rfpId,
+  });
+
+  if (!proposal) {
+    throw new Error("Proposal not found");
+  }
+
+  return proposal;
+};
+
+
 module.exports = {
   createProposal,
   getAllProposals,
   getProposalById,
+  getProposalByRfpId,
   approveProposal,
   rejectProposal,
 };

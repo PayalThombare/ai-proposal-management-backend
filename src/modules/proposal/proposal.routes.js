@@ -8,6 +8,8 @@ const {
   getProposalByIdController,
   approveProposalController,
   rejectProposalController,
+  getProposalByRfpIdController,
+  getProposalPdfController,
 } = require("./proposal.controller");
 
 const authMiddleware = require("../../../shared/middleware/authMiddleware");
@@ -68,6 +70,23 @@ router.patch(
   authMiddleware,
   roleMiddleware("manager"),
   rejectProposalController
+);
+
+router.get(
+  "/rfp/:rfpId",
+  authMiddleware,
+  roleMiddleware(
+    "admin",
+    "business_analyst",
+    "manager"
+  ),
+  getProposalByRfpIdController
+);
+
+router.get(
+  "/:id/download",
+  authMiddleware,
+  getProposalPdfController
 );
 
 module.exports = router;

@@ -94,7 +94,7 @@ Return ONLY proposal text.
 
     const response = await generateContent(prompt);
 
-  return JSON.parse(response);
+return response;
   } catch (error) {
     throw new Error(error.message);
   }
