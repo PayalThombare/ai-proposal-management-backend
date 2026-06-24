@@ -130,73 +130,7 @@ Generate total effort as:
 * Medium
 * High
 
-TIMELINE GENERATION RULES:
 
-Generate a detailed week-wise implementation timeline.
-
-Rules:
-
-Timeline must be based on actual project modules and requirements.
-Requirement Gathering and Project Planning must always be first.
-UI/UX Design and Database Design should occur before development.
-Development phases must explicitly mention actual project modules.
-Testing and Bug Fixing must occur before deployment.
-Deployment and User Training must always be the final phase.
-Timeline must align with the estimated duration.
-Activities should be grouped logically into weeks.
-Do NOT generate generic or unrelated activities.
-Every project must include a complete timeline.
-
-Example:
-
-"timeline": [
-{
-"week": "Week 1",
-"activities": [
-"Requirement Gathering",
-"Project Planning"
-]
-},
-{
-"week": "Week 2",
-"activities": [
-"UI/UX Design",
-"Database Design"
-]
-},
-{
-"week": "Week 3-4",
-"activities": [
-"Module Development"
-]
-},
-{
-"week": "Week 5",
-"activities": [
-"Feature Development"
-]
-},
-{
-"week": "Week 6",
-"activities": [
-"Integration & Refinement"
-]
-},
-{
-"week": "Week 7",
-"activities": [
-"System Testing",
-"Bug Fixing"
-]
-},
-{
-"week": "Week 8",
-"activities": [
-"Deployment",
-"User Training"
-]
-}
-]
 
 RECOMMENDATIONS RULES:
 
@@ -225,16 +159,9 @@ Return ONLY valid JSON:
 "estimatedDuration": "",
 "estimatedCost": "",
 "developmentEffort": "",
-"timeline": [],
 "reasoning": "",
 "recommendations": []
 }
-IMPORTANT:
-
-timeline field is mandatory.
-Do NOT return an empty timeline.
-Always generate a complete week-wise timeline.
-Return valid JSON only.
 `;
 
 
