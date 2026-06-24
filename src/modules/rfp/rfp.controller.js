@@ -13,7 +13,6 @@ const {
 } = require("../mpc/pdfMcp");
 
 const createRFPController = async (req, res) => {
-  try {
     if (!req.file) {
       return res.status(400).json({
         success: false,
@@ -28,9 +27,16 @@ const createRFPController = async (req, res) => {
     );
 
     // Extract PDF Text
-    const pdfData = await extractPdfText(
+    let pdfData;
+    try {
+    pdfData = await extractPdfText(
       req.file.path
     );
+  }
+  catch (error) {
+    console.error("Error extracting PDF text:", error);
+    throw new Error(`PDF Extraction Failed: ${error.message}`);
+  }
 
     // Save RFP
     const rfp = await createRFP({
@@ -50,12 +56,13 @@ const createRFPController = async (req, res) => {
       message: "RFP uploaded successfully",
       data: rfp,
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
+  //  catch (error) {
+  //   console.error("Error in createRFPController:", error);
+  //   res.status(500).json({
+  //     success: false,
+  //     message: error.message,
+  //   });
+  // }
 };
 
 const getAllRFPsController = async (req, res) => {

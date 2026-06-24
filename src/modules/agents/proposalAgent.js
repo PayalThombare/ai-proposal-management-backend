@@ -3,6 +3,9 @@ console.log(
   require("../../../shared/services/geminiService")
 );
 
+const { getProposalKnowledge } =
+ require("../mpc/knowledgeMcp");
+
 const generateProposal = async (
   requirements,
   businessAnalysis,
@@ -79,7 +82,7 @@ PROJECT TIMELINE
 (Use only provided estimation data.)
 
 COST ESTIMATION
-(Summarize estimation data only.)
+(Summarize estimation data only and show the cost only in INR to not convert dollars to or other currency to INR.)
 
 RISK ASSESSMENT
 (Summarize identified risks and mitigation.)
@@ -93,6 +96,7 @@ Return ONLY proposal text.
 
 
     const response = await generateContent(prompt);
+    
 
 return response;
   } catch (error) {

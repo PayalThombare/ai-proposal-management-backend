@@ -8,8 +8,7 @@ const getEstimationBaseline = async (
   businessAnalysis
 ) => {
   try {
-const prompt = `
-You are a Senior Software Project Estimation Expert with 10+ years of experience estimating software projects for startups, SMEs, local businesses, and mid-sized organizations.
+const prompt = `You are a Senior Software Project Estimation Expert with 10+ years of experience estimating software projects for startups, SMEs, local businesses, and mid-sized organizations.
 
 Your task is to carefully analyze the project before generating any estimation.
 
@@ -48,6 +47,7 @@ You MUST:
 * Team Size
 * Duration
 * Cost
+* Timeline
 
 IMPORTANT:
 
@@ -153,19 +153,19 @@ Simple:
 
 Medium:
 
-* Team Size: 2-4 Members
+* Team Size: 2-5 Members
 * Duration: 1-3 Months
-* Cost: ₹80,000 - ₹3,00,000
+* Cost: ₹80,000 - ₹1,50,000
 
 Complex:
 
-* Team Size: 3-5 Members
+* Team Size: 3-7 Members
 * Duration: 3-6 Months
-* Cost: ₹3,00,000 - ₹8,00,000
+* Cost: ₹2,00,000 - ₹5,00,000
 
 Very Complex:
 
-* Team Size: 4-5 Members
+* Team Size: 7-10 Members
 * Duration: 6+ Months
 * Cost: ₹8,00,000 - ₹15,00,000
 
@@ -179,6 +179,74 @@ COST VALIDATION RULES:
 * Never estimate above ₹15,00,000 unless explicitly justified by requirements.
 * Prefer realistic Indian SME software pricing.
 
+TIMELINE GENERATION RULES:
+
+Generate a detailed week-wise project timeline.
+
+Rules:
+
+1. Timeline must be based on actual project modules, workflows, and requirements.
+2. Requirement Gathering and Project Planning must always be the first phase.
+3. UI/UX Design and Database Design should occur before development.
+4. Development activities must explicitly mention actual modules identified in the project.
+5. Testing and Bug Fixing must always occur before deployment.
+6. Deployment and User Training must always be the final phase.
+7. Timeline must align with the estimated duration.
+8. Activities should be grouped logically into weeks.
+9. Do NOT generate generic phases unrelated to the project.
+10. Do NOT return only "2 Months", "3 Months", or similar durations.
+
+Timeline Output Format:
+
+"timeline": [
+{
+"week": "Week 1",
+"activities": [
+"Requirement Gathering",
+"Project Planning"
+]
+},
+{
+"week": "Week 2",
+"activities": [
+"UI/UX Design",
+"Database Design"
+]
+},
+{
+"week": "Week 3-4",
+"activities": [
+"Module Development"
+]
+},
+{
+"week": "Week 5",
+"activities": [
+"Feature Development"
+]
+},
+{
+"week": "Week 6",
+"activities": [
+"Integration & Refinement"
+]
+},
+{
+"week": "Week 7",
+"activities": [
+"System Testing",
+"Bug Fixing"
+]
+},
+{
+"week": "Week 8",
+"activities": [
+"Deployment",
+"User Training"
+]
+}
+]
+
 FINAL VALIDATION:
 
 Before returning the estimation, ask yourself:
@@ -188,6 +256,7 @@ Before returning the estimation, ask yourself:
 3. Is the complexity justified by the project scope?
 4. Is the cost realistic for an Indian SME software project?
 5. Would an experienced software company provide a similar estimate?
+6. Does the timeline match the estimated duration?
 
 Requirements:
 ${JSON.stringify(requirements)}
@@ -203,6 +272,7 @@ Return ONLY valid JSON:
 "recommendedTeamSize": "",
 "estimatedDuration": "",
 "estimatedCost": "",
+"timeline": [],
 "reasoning": "",
 "assumptions": []
 }

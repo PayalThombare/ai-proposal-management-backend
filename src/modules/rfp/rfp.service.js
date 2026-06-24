@@ -18,50 +18,55 @@ const {
 
 const createRFP = async (rfpData) => {
   try {
-    // Requirement Analysis
-    const requirements =
-      await analyzeRequirements(
-        rfpData.rfpText
-      );
+    console.log("========== RFP PROCESS START ==========");
 
-    // Business Analysis
-    const businessAnalysis =
-      await analyzeBusiness(
-        requirements
-      );
+    console.log("STEP 1: Requirements Analysis");
+    const requirements = await analyzeRequirements(
+      rfpData.rfpText
+    );
+    console.log("✅ Requirements Success");
 
-    // Risk Analysis
-    const riskAnalysis =
-      await analyzeRisk(
-        requirements,
-        businessAnalysis
-      );
+    console.log("STEP 2: Business Analysis");
+    const businessAnalysis = await analyzeBusiness(
+      requirements
+    );
+    console.log("✅ Business Analysis Success");
 
-    // Cost & Timeline Estimation
+    console.log("STEP 3: Risk Analysis");
+    const riskAnalysis = await analyzeRisk(
+      requirements,
+      businessAnalysis
+    );
+    console.log("✅ Risk Analysis Success");
+
+    console.log("STEP 4: Cost Estimation");
     const costEstimation =
       await estimateCostAndTimeline(
         requirements,
         businessAnalysis,
         riskAnalysis
       );
+    console.log("✅ Cost Estimation Success");
 
-    // Save RFP with AI Analysis
+    console.log("STEP 5: Saving RFP");
+
     const rfp = await RFP.create({
       ...rfpData,
-
       requirements,
-
       businessAnalysis,
-
       riskAnalysis,
-
       costEstimation,
-
       status: "analyzed",
     });
 
+    console.log("✅ RFP Saved Successfully");
+    console.log("========== RFP PROCESS END ==========");
+
     return rfp;
   } catch (error) {
+    console.error("❌ CREATE RFP ERROR:");
+    console.error(error);
+
     throw new Error(
       `RFP Processing Failed: ${error.message}`
     );

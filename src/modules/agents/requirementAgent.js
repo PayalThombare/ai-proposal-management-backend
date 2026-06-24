@@ -61,9 +61,23 @@ Return JSON in this format:
 `;
 
 
-    const response = await generateContent(prompt);
+ const response = await generateContent(prompt);
 
-  return JSON.parse(response);
+const cleaned = response
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
+
+const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
+
+if (!jsonMatch) {
+  throw new Error(
+    `No JSON found in AI response: ${response}`
+  );
+}
+
+return JSON.parse(jsonMatch[0]);
+
   } catch (error) {
     throw new Error(error.message);
   }
