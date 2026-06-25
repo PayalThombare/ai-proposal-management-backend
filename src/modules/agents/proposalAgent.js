@@ -118,32 +118,52 @@ Do not invent deployment, documentation, APIs, mobile applications, dashboards, 
 
 # PROJECT TIMELINE
 
-Use ONLY the Duration from Cost Estimation.
+Use ONLY the Duration provided in the Cost Estimation input.
 
-Example:
+Create a realistic week-wise project execution plan that fits entirely within the provided duration.
 
-Estimated Duration: 14 Weeks
+The timeline should be based only on standard software development activities such as:
+- Requirement Validation
+- System Design
+- Module Development
+- Integration
+- Testing
+- Bug Fixing
+- User Acceptance Testing (UAT)
+- Deployment
+- Project Handover
 
-Do NOT estimate any additional phases.
-
-Do NOT mention "timeline will be finalized later."
+Rules:
+- The total duration MUST exactly match the provided Duration.
+- Do NOT exceed the provided number of weeks.
+- Do NOT invent additional project phases outside a normal software development lifecycle.
+- Do NOT change the Duration.
+- If Duration is 14 Weeks, distribute the activities across exactly 14 weeks.
+- Mention what will be completed during each week or group of weeks in a clear and professional format.
 
 ------------------------------------------------
 
 # COST ESTIMATION
 
-Use ONLY the Estimated Cost from Cost Estimation.
+Use ONLY the information provided in the Cost Estimation input.
 
-Example:
+Display:
+- Estimated Cost
+- Project Complexity
+- Team Size
+- Development Effort
 
+Briefly explain that the estimated cost is based on the analyzed project scope, complexity, estimated development effort, and required resources.
 
-Do NOT calculate.
-
-Do NOT estimate.
-
-Do NOT provide a price range.
-
-Do NOT modify the amount.
+Rules:
+- Use ONLY the values provided in the Cost Estimation input.
+- Do NOT calculate a new cost.
+- Do NOT estimate a different amount.
+- Do NOT provide a price range.
+- Do NOT modify the Estimated Cost.
+- Do NOT modify the Team Size.
+- Do NOT modify the Complexity.
+- Do NOT modify the Development Effort.
 
 ------------------------------------------------
 
