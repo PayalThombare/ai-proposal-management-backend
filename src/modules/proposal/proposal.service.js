@@ -32,7 +32,8 @@ const getProposalById = async (id) => {
 };
 
 const approveProposal = async (proposalId, managerId) => {
-  const proposal = await Proposal.findById(proposalId);
+  const proposal = await Proposal.findById(proposalId)
+    .populate("rfpId");
 
   if (!proposal) {
     throw new Error("Proposal not found");
