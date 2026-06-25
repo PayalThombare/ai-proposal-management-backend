@@ -12,6 +12,12 @@ const generateProposal = async (
   riskAnalysis,
   costEstimation
 ) => {
+
+      console.log("===== BUSINESS ANALYSIS =====");
+    console.log(JSON.stringify(businessAnalysis, null, 2));
+
+    console.log("===== COST ESTIMATION =====");
+    console.log(JSON.stringify(costEstimation, null, 2));
   try {
 const prompt = `
 You are a Senior IT Consultant and Proposal Writer.
