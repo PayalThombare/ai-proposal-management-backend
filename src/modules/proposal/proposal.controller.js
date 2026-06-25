@@ -37,8 +37,6 @@ const createProposalController = async (req, res) => {
 
     const proposalContent =
       await generateProposal(
-         rfp.projectName,
-    rfp.clientName,
         rfp.requirements,
         rfp.businessAnalysis,
         rfp.riskAnalysis,
