@@ -16,81 +16,159 @@ const generateProposal = async (
 const prompt = `
 You are a Senior IT Consultant and Proposal Writer.
 
-Your task is to generate a highly project-specific business proposal.
+Your task is to generate a professional, project-specific software proposal using ONLY the information provided below.
 
-CRITICAL INSTRUCTIONS:
+========================
+STRICT RULES (MANDATORY)
+========================
 
-1. Analyze the Requirements, Business Analysis, Risk Analysis, and Cost Estimation carefully.
-2. Every proposal must be unique to the project domain.
-3. Write from the perspective of a software company proposing a solution.
-4. Mention actual modules and features identified in the Business Analysis.
-5. Do NOT use generic wording such as:
+1. Use ONLY the supplied Requirements, Business Analysis, Risk Analysis, and Cost Estimation.
+2. NEVER invent or assume information.
+3. NEVER add new modules.
+4. NEVER remove existing modules.
+5. Mention ONLY the modules listed in Business Analysis.
+6. NEVER invent workflows, integrations, dashboards, reports, mobile apps, APIs, technologies, or deliverables unless explicitly mentioned.
+7. NEVER modify the Estimated Cost.
+8. NEVER calculate a new price.
+9. NEVER provide a price range.
+10. NEVER convert currencies.
+11. Use the EXACT Estimated Cost value from Cost Estimation.
+12. NEVER modify the Duration.
+13. NEVER modify the Team Size.
+14. NEVER change the Complexity.
+15. NEVER create your own project timeline.
+16. Every section must remain fully consistent with the supplied analysis.
+17. If any information is unavailable, write "Not Specified" instead of making assumptions.
+18. Do not use generic business buzzwords such as:
+   - Modern Solution
+   - Scalable Platform
+   - Enterprise Grade
+   - Industry Standard
+   - Cutting Edge
+   - Future Ready
+   unless directly supported by the inputs.
+19. Write from the perspective of a software development company responding to an RFP.
+20. Keep the proposal practical, professional, and client-focused.
 
-   * "modern solution"
-   * "scalable platform"
-   * "industry standard system"
-     unless directly supported by the inputs.
-6. Do NOT invent:
-
-   * Features
-   * Integrations
-   * Timelines
-   * Costs
-   * Team sizes
-   * Technologies
-7. The proposal must clearly reflect the client's business problem.
-8. Explain how the proposed modules solve the client's requirements.
-9. Use information from Business Analysis and Cost Estimation wherever relevant.
-10. Keep the proposal professional, practical, and client-focused.
-
-WRITING STYLE:
-
-* Professional business language
-* Project-specific content
-* Avoid repetitive sentences
-* Avoid generic IT buzzwords
-* Focus on business value
-* Maximum 2 paragraphs per section
+========================
+INPUT DATA
+========================
 
 Requirements:
-${JSON.stringify(requirements)}
+${JSON.stringify(requirements, null, 2)}
 
 Business Analysis:
-${JSON.stringify(businessAnalysis)}
+${JSON.stringify(businessAnalysis, null, 2)}
 
 Risk Analysis:
-${JSON.stringify(riskAnalysis)}
+${JSON.stringify(riskAnalysis, null, 2)}
 
 Cost Estimation:
-${JSON.stringify(costEstimation)}
+${JSON.stringify(costEstimation, null, 2)}
 
-Generate the proposal using this structure:
+========================
+OUTPUT FORMAT
+========================
 
-EXECUTIVE SUMMARY
-(Explain the client's requirement and business objective.)
+Generate ONLY the proposal using the following sections.
 
-PROJECT SCOPE
-(Describe the actual modules and workflows identified.)
+# EXECUTIVE SUMMARY
 
-PROPOSED SOLUTION
-(Explain how the proposed system addresses the requirements.)
+Explain:
 
-KEY DELIVERABLES
-(List deliverables based on business analysis.)
+- Client's business problem
+- Business objective
+- Why the proposed system is required
 
-PROJECT TIMELINE
-(Use only provided estimation data.)
+Do not mention anything not present in the inputs.
 
-COST ESTIMATION
-(Summarize estimation data only and show the cost only in INR to not convert dollars to or other currency to INR.)
+------------------------------------------------
 
-RISK ASSESSMENT
-(Summarize identified risks and mitigation.)
+# PROJECT SCOPE
 
-CONCLUSION
-(Professional closing statement tailored to the project.)
+Describe ONLY the modules present in Business Analysis.
 
-Return ONLY proposal text.
+Do NOT introduce any additional modules.
+
+Explain how each module contributes to the project.
+
+------------------------------------------------
+
+# PROPOSED SOLUTION
+
+Explain how the proposed modules solve the client's business requirements.
+
+Base this section ONLY on the supplied Requirements and Business Analysis.
+
+------------------------------------------------
+
+# KEY DELIVERABLES
+
+List ONLY deliverables that can be directly inferred from the supplied data.
+
+Do not invent deployment, documentation, APIs, mobile applications, dashboards, integrations, or reports unless explicitly mentioned.
+
+------------------------------------------------
+
+# PROJECT TIMELINE
+
+Use ONLY the Duration from Cost Estimation.
+
+Example:
+
+Estimated Duration: 14 Weeks
+
+Do NOT estimate any additional phases.
+
+Do NOT mention "timeline will be finalized later."
+
+------------------------------------------------
+
+# COST ESTIMATION
+
+Use ONLY the Estimated Cost from Cost Estimation.
+
+Example:
+
+
+Do NOT calculate.
+
+Do NOT estimate.
+
+Do NOT provide a price range.
+
+Do NOT modify the amount.
+
+------------------------------------------------
+
+# RISK ASSESSMENT
+
+Summarize the supplied risks and mitigation strategies.
+
+Do not invent new risks.
+
+------------------------------------------------
+
+# CONCLUSION
+
+Write a professional closing statement tailored to the client's project.
+
+========================
+FINAL RULE
+========================
+
+Return ONLY the proposal text.
+
+Before returning the proposal, verify that:
+
+- Modules exactly match Business Analysis.
+- Estimated Cost exactly matches Cost Estimation.
+- Duration exactly matches Cost Estimation.
+- Team Size is not modified.
+- Complexity is not modified.
+- No new features, modules, timelines, or costs have been invented.
+
+If any section violates these rules, regenerate it before returning the final proposal.
 `;
 
 
