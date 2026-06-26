@@ -1,7 +1,7 @@
 <img width="1536" height="1024" alt="image1" src="https://github.com/user-attachments/assets/5a3501d2-8fec-4e77-985b-ec2e7f77306b" />
 
 
-# AI Proposal Management System – Project Summary
+# **AI Proposal Management System **
 
 ## Overview
 
